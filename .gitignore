@@ -1,4 +1,5 @@
 setup.py
 dist/*
-protalib_ditrames.egg-info/*
-protalib.egg-info
+build/*
+prolib_ditrames.egg-info/*
+prolib.egg-info
