@@ -12,7 +12,7 @@ def get_ip():
             i)
         try:
             HOST = addrs[netifaces.AF_INET][0]["addr"]
-            if "192" in HOST or "172" in "HOST":
+            if "192.168.1" in HOST or "172.168.1" in "HOST":
                 break
         except:
             pass
