@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="prolib",  # Replace with your own username
-    version="0.0.1.1",
+    version="0.0.2",
     author="ditrames",
     author_email="ditrames@gmail.com",
     description="A small socket wrapper",

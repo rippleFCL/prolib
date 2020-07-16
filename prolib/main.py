@@ -313,53 +313,55 @@ class ftp(socket_wrapper):
             "closed ftp connection")
 
 
-if __name__ == "__main__":
-    import time
-    port = 13472
+# if __name__ == "__main__":
+#     import time
+#     port = 13472
 
-    data_length = 64_000_000
-    data = "i"*data_length
-    recv = 2*data_length
-    iterations = 1
+#     data_length = 64_000_000
+#     data = "i"*data_length
+#     recv = 2*data_length
+#     iterations = 1
 
-    data_tx = ((8*data_length)*(iterations)) / (8*1024*1000)
+#     data_tx = ((8*data_length)*(iterations)) / (8*1024*1000)
 
-    type_ = "max"
+#     type_ = "max"
 
-    if type_ == "max":
+#     if type_ == "max":
 
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.bind(("0.0.0.0", port))
-        sock.listen()
-        print("ayy")
-        conn, ip = sock.accept()
-        conn = socket_wrapper(conn)
+#         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         sock.bind(("0.0.0.0", port))
+#         sock.listen()
+#         print("ayy")
+#         conn, ip = sock.accept()
+#         conn.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+#         conn = socket_wrapper(conn)
 
-        t = time.time()
+#         t = time.time()
 
-        for i in range(iterations):
-            print(i)
-            conn.recv(recv)
+#         for i in range(iterations):
+#             print(i)
+#             conn.recv(recv)
 
-        conn.send("hi")
+#         conn.send("hi")
 
-        time_d = time.time() - t
+#         time_d = time.time() - t
 
-        conn.close()
-        print(f"{data_tx}MB transmited in {time_d} with a data rate of {round((1/time_d)*data_tx, 2)}MB")
+#         conn.close()
+#         print(f"{data_tx}MB transmited in {time_d} with a data rate of {round((1/time_d)*data_tx, 2)}MB")
 
-    if type_ == "leo":
+#     if type_ == "leo":
 
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        sock.connect(("86.141.99.238", port))
+#         sock.connect(("86.141.99.238", port))
 
-        sock = socket_wrapper(sock)
-        t = time.time()
+#         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+#         sock = socket_wrapper(sock)
+#         t = time.time()
 
-        for i in range(iterations):
-            sock.send(data)
+#         for i in range(iterations):
+#             sock.send(data)
 
-        time_d = time.time() - t
-        sock.close()
-        print(f"{data_tx}MB transmited in {time_d} with a data rate of {round((1/time_d)*data_tx, 2)}MB")
+#         time_d = time.time() - t
+#         sock.close()
+#         print(f"{data_tx}MB transmited in {time_d} with a data rate of {round((1/time_d)*data_tx, 2)}MB")
