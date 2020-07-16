@@ -311,15 +311,15 @@ if __name__ == "__main__":
     import time
     port = 13472
 
-    data_length = 1600
-    data = "hi"*data_length
+    data_length = 12_800_000
+    data = "i"*data_length
     recv = 2*data_length
 
-    iterations = 1000
+    iterations = 5
 
-    data_tx = ((8*data_length)*(iterations)) / 1024000
+    data_tx = ((8*data_length)*(iterations)) / (8*1024*1000)
 
-    type_ = "leo"
+    type_ = "max"
 
     if type_ == "max":
 
@@ -333,6 +333,7 @@ if __name__ == "__main__":
         t = time.time()
 
         for i in range(iterations):
+            print(i)
             conn.recv(recv)
 
         time_d = time.time() - t
