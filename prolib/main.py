@@ -55,6 +55,8 @@ class socket_wrapper:
             else:
                 self.conn.sendall(bytes(data, "utf-8"))
 
+            self.conn.recv(1)
+
         except SocketError as e:
             if e.errno != errno.EBADF:
                 raise  # Not error we are looking for
@@ -88,6 +90,10 @@ class socket_wrapper:
                 else:
                     data_comp += self.__recv_loop(
                         recv_len).decode()
+
+            d = 0
+            while d != 1:
+                d = self.conn.send(b"c")
 
             return data_comp
 
@@ -311,11 +317,10 @@ if __name__ == "__main__":
     import time
     port = 13472
 
-    data_length = 12_800_000
+    data_length = 64_000_000
     data = "i"*data_length
     recv = 2*data_length
-
-    iterations = 5
+    iterations = 1
 
     data_tx = ((8*data_length)*(iterations)) / (8*1024*1000)
 
@@ -336,6 +341,8 @@ if __name__ == "__main__":
             print(i)
             conn.recv(recv)
 
+        conn.send("hi")
+
         time_d = time.time() - t
 
         conn.close()
@@ -351,7 +358,7 @@ if __name__ == "__main__":
         t = time.time()
 
         for i in range(iterations):
-            conn.send(data)
+            sock.send(data)
 
         time_d = time.time() - t
         sock.close()
