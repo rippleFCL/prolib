@@ -311,41 +311,47 @@ if __name__ == "__main__":
     import time
     port = 13472
 
-    data_length = 1600000
+    data_length = 1600
     data = "hi"*data_length
     recv = 2*data_length
 
-    iterations = 10000
+    iterations = 1000
 
-    data_tx = ((8*data_length)*(2*iterations)) / 1024000000
+    data_tx = ((8*data_length)*(iterations)) / 1024000
 
-    try:
+    type_ = "leo"
+
+    if type_ == "max":
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.bind(("127.0.0.1", port))
+        sock.bind(("0.0.0.0", port))
         sock.listen()
         print("ayy")
         conn, ip = sock.accept()
         conn = socket_wrapper(conn)
+
         t = time.time()
+
         for i in range(iterations):
             conn.recv(recv)
-        for _ in range(iterations):
+
+        time_d = time.time() - t
+
+        conn.close()
+        print(f"{data_tx}MB transmited in {time_d} with a data rate of {round((1/time_d)*data_tx, 2)}MB")
+
+    if type_ == "leo":
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        sock.connect(("86.141.99.238", port))
+
+        sock = socket_wrapper(sock)
+        t = time.time()
+
+        for i in range(iterations):
             conn.send(data)
 
         time_d = time.time() - t
-        conn.close()
-        print(f"{data_tx}GB transmited in {time_d} with a data rate of {round((1/time_d)*data_tx, 2)}GB")
-    except:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.connect(("127.0.0.1", port))
-        sock = socket_wrapper(sock)
-        t = time.time()
-        for _ in range(iterations):
-            sock.send(data)
-        for i in range(iterations):
-            sock.recv(recv)
-
-        time_d = time.time() - t
         sock.close()
-        print(f"{data_tx}GB transmited in {time_d} with a data rate of {round((1/time_d)*data_tx, 2)}GB")
+        print(f"{data_tx}MB transmited in {time_d} with a data rate of {round((1/time_d)*data_tx, 2)}MB")
