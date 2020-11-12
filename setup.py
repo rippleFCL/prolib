@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="prolib",  # Replace with your own username
-    version="0.0.2",
+    version="0.0.3",
     author="ditrames",
     author_email="ditrames@gmail.com",
     description="A small socket wrapper",
@@ -19,4 +19,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    install_requires=[
+        'netifaces>=0.10.9'
+    ],
 )
